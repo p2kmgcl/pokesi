@@ -9,6 +9,7 @@ import { goTo, goBack, updatePathname } from './actions/go-to';
 import { loadIngredients, loadIngredientsSuccess } from './actions/ingredients'
 import { addIngredient, removeIngredient } from './actions/update-quantity'
 import { share } from './actions/share'
+import { initializeFirebase } from './utils/api';
 
 const actions = {
   goTo,
@@ -21,5 +22,6 @@ const actions = {
   share
 };
 
+initializeFirebase()
 app(initialState, actions, appView, document.getElementById('app'))
 registerServiceWorker()

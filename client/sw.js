@@ -1,4 +1,8 @@
 import {
+  initializeFirebase
+} from './utils/api'
+
+import {
   handleServiceWorkerInstalled,
   handleServiceWorkerActivated,
   handleServiceWorkerMessage,
@@ -6,6 +10,8 @@ import {
 } from './to-do/service-worker'
 
 const CACHE_VERSION = '1'
+
+initializeFirebase()
 
 self.addEventListener('install', event => handleServiceWorkerInstalled(event, CACHE_VERSION))
 self.addEventListener('activate', event => handleServiceWorkerActivated(event, CACHE_VERSION))

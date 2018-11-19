@@ -1,9 +1,5 @@
-import {
-  ASSETS,
-  INGREDIENTS_URL,
-  SERVER_URL,
-  CLIENT_URL
-} from "../utils/constants";
+import { api, getFile } from '../utils/api'
+import { ASSETS, INGREDIENTS_URL, CLIENT_URL } from "../utils/constants";
 
 /**
  * Adds client base code to cache
@@ -17,7 +13,7 @@ async function addClientToCache(cache) {
       try {
         await cache.add(assetURL)
       } catch (error) {
-        console.error(`Failed to add ${assetURL}`)
+        console.error(`Failed to add ${assetURL}`, error)
         throw error
       }
     })
@@ -30,13 +26,13 @@ async function addClientToCache(cache) {
  */
 async function addIngredientsToCache(cache) {
   try {
-    const ingredientsResponse = await fetch(INGREDIENTS_URL)
+    const ingredients = await api(INGREDIENTS_URL)
 
-    await cache.put(INGREDIENTS_URL, ingredientsResponse.clone())
+    await cache.put(INGREDIENTS_URL, ingredients)
 
     await Promise.all(
-      (await ingredientsResponse.json()).map(async (ingredient) => {
-        const imageURL = `${SERVER_URL}${ingredient.image}`
+      ingredients.map(async (ingredient) => {
+        const imageURL = await getFile(ingredient.image)
 
         try {
           cache.add(imageURL)
@@ -47,7 +43,7 @@ async function addIngredientsToCache(cache) {
       })
     )
   } catch(error) {
-    console.log('Failed to add /ingredients')
+    console.log('Failed to add /ingredients', error)
     throw error
   }
 }

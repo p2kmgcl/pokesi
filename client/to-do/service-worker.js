@@ -30,7 +30,7 @@ function handleServiceWorkerInstalled(event, cacheVersion) {
     caches.open(cacheVersion)
       .then(async (cache) => {
         await addClientToCache(cache)
-        await addIngredientsToCache(cache)
+        // await addIngredientsToCache(cache)
       })
       .catch(
         () => console.log(`ServiceWorker ${cacheVersion} failed to install`)

@@ -1,11 +1,16 @@
-import api from '../utils/api'
-import { SERVER_URL } from '../utils/constants';
+import api, { getFile } from '../utils/api'
 
 const loadIngredients = () => async (state, actions) => {
   try {
-    const response = await api('/ingredients');
-    const ingredients = await response.json();
-    actions.loadIngredientsSuccess(ingredients);
+    const ingredients = await Promise.all((await api('/ingredients')).map(
+      async (ingredient) => Object.assign(
+        {},
+        ingredient,
+        { image: await getFile(ingredient.image) }
+      )
+    ))
+
+    actions.loadIngredientsSuccess(ingredients)
   } catch (error) {
     console.error(error)
   }
@@ -13,13 +18,7 @@ const loadIngredients = () => async (state, actions) => {
   return { ingredients: null }
 };
 
-const loadIngredientsSuccess = ingredients => () => {
-  return {
-    ingredients: ingredients.map(ingredient => Object.assign({}, ingredient, {
-      image: `${SERVER_URL}${ingredient.image}`
-    }))
-  }
-};
+const loadIngredientsSuccess = ingredients => () => ({ ingredients })
 
 export {
   loadIngredients,

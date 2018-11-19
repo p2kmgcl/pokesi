@@ -1,4 +1,4 @@
-import { CLIENT_URL, SERVER_URL } from './constants'
+import { CLIENT_URL } from './constants'
 
 const isClientURL = (url) => {
   let isClient = url.startsWith(CLIENT_URL)
@@ -11,36 +11,12 @@ const isClientURL = (url) => {
       (pathname === '/index.html') ||
       (pathname === '/summary') ||
       (/^\/ingredients\/([a-z\-]+)$/i.test(pathname))
-      )
-    }
-
-    return isClient
-  }
-
-const isServerURL = (url) => {
-  let isServer = url.startsWith(SERVER_URL)
-
-  if (isServer) {
-    const pathname = url.replace(SERVER_URL, '')
-
-    isServer = (
-      (pathname === '/ingredients') ||
-      (/^\/([a-z\-]+)\.jpg$/i.test(pathname))
     )
   }
 
-  return isServer
+  return isClient
 }
-
-const isAppURL = (url) => (
-  isClientURL(url) ||
-  isServerURL(url)
-)
 
 export {
-  isClientURL,
-  isServerURL,
-  isAppURL
+  isClientURL
 }
-
-export default isAppURL

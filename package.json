@@ -45,6 +45,7 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "firebase": "^5.5.8",
     "husky": "^1.1.2",
     "hyperapp": "^1.2.9",
     "lint-staged": "^7.3.0",

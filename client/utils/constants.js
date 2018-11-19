@@ -4,8 +4,15 @@ const location = global.location || {
 }
 
 const CLIENT_URL = `${location.protocol}//${location.hostname}:8080`
-const SERVER_URL = `http://${location.hostname}:3000`
-const INGREDIENTS_URL = `${SERVER_URL}/ingredients`
+const INGREDIENTS_URL = '/ingredients'
+
+const FIREBASE_CONFIG = {
+  apiKey: 'AIzaSyDws1xGENVLDcSl6qtQQVREX1Ca9LuBG5o',
+  authDomain: 'pokesi-da9d5.firebaseapp.com',
+  databaseURL: 'https://pokesi-da9d5.firebaseio.com',
+  storageBucket: 'pokesi-da9d5.appspot.com',
+  messagingSenderId: '132447292162'
+}
 
 const ASSETS = [
   'manifest.json',
@@ -50,6 +57,6 @@ const ASSETS = [
 module.exports = {
   ASSETS,
   CLIENT_URL,
-  INGREDIENTS_URL,
-  SERVER_URL
+  FIREBASE_CONFIG,
+  INGREDIENTS_URL
 }
